@@ -3,97 +3,46 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simple IPL ticket price calculator demo.">
   <title>IPL Ticket Booking</title>
-  <link rel="stylesheet" href="css/style.css">
-  <script src="JS/app.js" defer></script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
-
-  <header>
+  <main class="booking-page">
     <h1>IPL Ticket Booking</h1>
+    <p class="intro">Choose a match, stand and ticket quantity to see the price.</p>
 
-    <nav aria-label="Main navigation">
-      <a href="#home">Home</a>
-      <a href="#matches">Matches</a>
-      <a href="#booking">Book Tickets</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+    <form id="booking-form">
+      <label for="match-select">Match</label>
+      <select id="match-select" name="match" required>
+        <option value="" selected disabled>Select a match</option>
+      </select>
 
-  <main>
-    <section id="home">
-      <h2>Book Your IPL Match Tickets</h2>
-      <p>Choose a match and reserve your seats.</p>
-      <a href="#matches">View Upcoming Matches</a>
+      <label for="stand-select">Stand Category</label>
+      <select id="stand-select" name="stand" required>
+        <option value="" selected disabled>Select a stand</option>
+        <option value="general">General Stand</option>
+        <option value="premium">Premium Stand</option>
+        <option value="vip">VIP Stand</option>
+      </select>
+
+      <label for="quantity">Number of Tickets</label>
+      <input id="quantity" name="quantity" type="number" min="1" max="10" step="1" value="1" required>
+      <p class="hint">Select between 1 and 10 tickets. The summary updates automatically.</p>
+    </form>
+
+    <section class="summary-card" aria-labelledby="summary-title" aria-live="polite">
+      <h2 id="summary-title">Booking Summary</h2>
+      <p><span>Selected Match:</span> <strong id="summary-match">—</strong></p>
+      <p><span>Stand Category:</span> <strong id="summary-stand">—</strong></p>
+      <p><span>Number of Tickets:</span> <strong id="summary-quantity">—</strong></p>
+      <p><span>Price per Ticket:</span> <strong id="summary-price">₹0</strong></p>
+      <p class="total"><span>Total Price:</span> <strong id="summary-total">₹0</strong></p>
     </section>
 
-    <section id="matches">
-      <h2>Upcoming Matches</h2>
-
-      <article>
-        <h3>Chennai Super Kings vs Mumbai Indians</h3>
-        <p>Date: 15 April 2026</p>
-        <p>Venue: Chennai</p>
-        <p>Tickets from: ₹1,000</p>
-        <a href="?match=csk-mi#booking">Book this match</a>
-      </article>
-
-      <article>
-        <h3>Royal Challengers Bengaluru vs Kolkata Knight Riders</h3>
-        <p>Date: 18 April 2026</p>
-        <p>Venue: Bengaluru</p>
-        <p>Tickets from: ₹800</p>
-        <a href="?match=rcb-kkr#booking">Book this match</a>
-      </article>
-    </section>
-
-    <section id="booking">
-      <h2>Book Tickets</h2>
-      <p>Change your choices to update the booking summary.</p>
-
-      <div class="booking-layout">
-        <form id="booking-form">
-          <label for="match">Match</label>
-          <select id="match" name="match" required>
-            <option value="">Select a match</option>
-            <option value="csk-mi" data-price="1000">Chennai Super Kings vs Mumbai Indians</option>
-            <option value="rcb-kkr" data-price="800">Royal Challengers Bengaluru vs Kolkata Knight Riders</option>
-          </select>
-
-          <label for="stand">Stand Category</label>
-          <select id="stand" name="stand">
-            <option value="general">General</option>
-            <option value="premium">Premium</option>
-            <option value="vip">VIP</option>
-          </select>
-
-          <label for="quantity">Number of Tickets</label>
-          <input id="quantity" name="quantity" type="number" min="1" max="10" value="1" required>
-        </form>
-
-        <aside class="summary-card" aria-labelledby="summary-heading">
-          <h3 id="summary-heading">Booking Summary</h3>
-          <dl>
-            <dt>Match</dt>
-            <dd id="summary-match">Not selected</dd>
-            <dt>Stand</dt>
-            <dd id="summary-stand">General</dd>
-            <dt>Price per ticket</dt>
-            <dd id="summary-price">₹0</dd>
-            <dt>Quantity</dt>
-            <dd id="summary-quantity">1</dd>
-            <dt>Total</dt>
-            <dd id="summary-total">₹0</dd>
-          </dl>
-        </aside>
-      </div>
-    </section>
+    <p class="disclaimer">Demo only. This page does not create a real booking or collect payment.</p>
   </main>
-
-  <footer id="contact">
-    <p>Contact: support@example.com</p>
-    <p>&copy; 2026 IPL Ticket Booking</p>
-  </footer>
 
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </body>
