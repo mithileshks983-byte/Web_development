@@ -3,47 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Simple IPL ticket price calculator demo.">
-  <title>IPL Ticket Booking</title>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <meta name="description" content="Explore IPL fixtures, match details and ticket prices.">
+  <title>IPL Matchday | Fixtures and Tickets</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="JS/app.js" defer></script>
 </head>
 <body>
-  <main class="booking-page">
-    <h1>IPL Ticket Booking</h1>
-    <p class="intro">Choose a match, stand and ticket quantity to see the price.</p>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="IPL Matchday home">
+      <span class="brand-mark" aria-hidden="true">IPL</span>
+      <span>Matchday</span>
+    </a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-nav">
+      <span class="menu-icon" aria-hidden="true"></span>
+      <span class="sr-only">Toggle navigation</span>
+    </button>
+    <nav id="primary-nav" class="primary-nav" aria-label="Main navigation">
+      <a href="#matches">Matches</a>
+      <a href="#guidelines">Guidelines</a>
+      <a class="nav-cta" href="#tickets">Ticket estimator</a>
+    </nav>
+  </header>
 
-    <form id="booking-form">
-      <label for="match-select">Match</label>
-      <select id="match-select" name="match" required>
-        <option value="" selected disabled>Select a match</option>
-      </select>
-
-      <label for="stand-select">Stand Category</label>
-      <select id="stand-select" name="stand" required>
-        <option value="" selected disabled>Select a stand</option>
-        <option value="general">General Stand</option>
-        <option value="premium">Premium Stand</option>
-        <option value="vip">VIP Stand</option>
-      </select>
-
-      <label for="quantity">Number of Tickets</label>
-      <input id="quantity" name="quantity" type="number" min="1" max="10" step="1" value="1" required>
-      <p class="hint">Select between 1 and 10 tickets. The summary updates automatically.</p>
-    </form>
-
-    <section class="summary-card" aria-labelledby="summary-title" aria-live="polite">
-      <h2 id="summary-title">Booking Summary</h2>
-      <p><span>Selected Match:</span> <strong id="summary-match">—</strong></p>
-      <p><span>Stand Category:</span> <strong id="summary-stand">—</strong></p>
-      <p><span>Number of Tickets:</span> <strong id="summary-quantity">—</strong></p>
-      <p><span>Price per Ticket:</span> <strong id="summary-price">₹0</strong></p>
-      <p class="total"><span>Total Price:</span> <strong id="summary-total">₹0</strong></p>
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">The season starts here</p>
+        <h1>Make every matchday <span>count.</span></h1>
+        <p>Find your next fixture, pick your team and get ready for the roar of the crowd.</p>
+        <a class="button button-light" href="#matches">Explore fixtures <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="hero-score" aria-label="Indian Premier League">
+        <span class="score-ball" aria-hidden="true">✦</span>
+        <span class="score-label">CRICKET, PASSION<br>AND EVERYTHING IN BETWEEN</span>
+        <strong>IPL <span>2026</span></strong>
+      </div>
     </section>
 
-    <p class="disclaimer">Demo only. This page does not create a real booking or collect payment.</p>
+    <section id="matches" class="content-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Mark your calendar</p>
+          <h2>Upcoming matches</h2>
+        </div>
+        <label class="filter-control" for="team-filter">
+          <span>Filter by team</span>
+          <select id="team-filter">
+            <option value="all">All teams</option>
+            <option value="CSK">Chennai Super Kings</option>
+            <option value="MI">Mumbai Indians</option>
+            <option value="RCB">Royal Challengers Bengaluru</option>
+            <option value="KKR">Kolkata Knight Riders</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="schedule-toolbar">
+        <p id="match-count" aria-live="polite">3 fixtures</p>
+        <div class="view-switch" role="group" aria-label="Match layout">
+          <button class="view-button is-active" type="button" data-view="grid" aria-pressed="true">Grid</button>
+          <button class="view-button" type="button" data-view="list" aria-pressed="false">List</button>
+        </div>
+      </div>
+
+      <div id="match-list" class="match-grid">
+        <article class="match-card" data-teams="CSK MI" data-match="csk-mi">
+          <div class="match-date"><span>APR</span><strong>15</strong><span>2026</span></div>
+          <div class="match-info">
+            <p class="match-round">LEAGUE MATCH <span>·</span> 7:30 PM</p>
+            <h3><span class="team-code">CSK</span> <span class="versus">vs</span> <span class="team-code">MI</span></h3>
+            <p class="venue">M. A. Chidambaram Stadium · Chennai</p>
+          </div>
+          <button class="button button-dark select-match" type="button" data-select-match="csk-mi">Select match <span aria-hidden="true">→</span></button>
+        </article>
+        <article class="match-card" data-teams="RCB KKR" data-match="rcb-kkr">
+          <div class="match-date"><span>APR</span><strong>18</strong><span>2026</span></div>
+          <div class="match-info">
+            <p class="match-round">LEAGUE MATCH <span>·</span> 7:30 PM</p>
+            <h3><span class="team-code">RCB</span> <span class="versus">vs</span> <span class="team-code">KKR</span></h3>
+            <p class="venue">M. Chinnaswamy Stadium · Bengaluru</p>
+          </div>
+          <button class="button button-dark select-match" type="button" data-select-match="rcb-kkr">Select match <span aria-hidden="true">→</span></button>
+        </article>
+        <article class="match-card" data-teams="MI KKR" data-match="mi-kkr">
+          <div class="match-date"><span>APR</span><strong>21</strong><span>2026</span></div>
+          <div class="match-info">
+            <p class="match-round">LEAGUE MATCH <span>·</span> 7:30 PM</p>
+            <h3><span class="team-code">MI</span> <span class="versus">vs</span> <span class="team-code">KKR</span></h3>
+            <p class="venue">Wankhede Stadium · Mumbai</p>
+          </div>
+          <button class="button button-dark select-match" type="button" data-select-match="mi-kkr">Select match <span aria-hidden="true">→</span></button>
+        </article>
+        <p id="no-matches" class="empty-state" hidden>No matches found for this team.</p>
+      </div>
+    </section>
+
+    <section id="guidelines" class="guidelines-section">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">A better matchday</p>
+          <h2>Before you head in</h2>
+        </div>
+        <p class="section-note">A little preparation goes a long way. Keep these essentials in mind.</p>
+      </div>
+      <div class="guidelines-grid">
+        <article class="guideline-card">
+          <span class="guideline-number">01</span>
+          <h3>Arrive early</h3>
+          <p>Plan for traffic and security checks. Gates open well before the first ball.</p>
+        </article>
+        <article class="guideline-card">
+          <span class="guideline-number">02</span>
+          <h3>Travel light</h3>
+          <p>Check your venue's bag policy and leave restricted items at home.</p>
+        </article>
+        <article class="guideline-card">
+          <span class="guideline-number">03</span>
+          <h3>Keep your ticket handy</h3>
+          <p>Have your valid ticket and photo ID ready for a smooth entry.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="tickets" class="ticket-section">
+      <div class="ticket-copy">
+        <p class="eyebrow">Plan your seats</p>
+        <h2>Ticket estimator</h2>
+        <p>Choose a fixture, stand and ticket quantity to see an estimated total.</p>
+        <p class="demo-note">Demo only. No real booking or payment is made.</p>
+      </div>
+      <form id="booking-form" class="ticket-form">
+        <label for="match-select">Match</label>
+        <select id="match-select" name="match" required>
+          <option value="" selected disabled>Select a match</option>
+        </select>
+        <label for="stand-select">Stand category</label>
+        <select id="stand-select" name="stand" required>
+          <option value="" selected disabled>Select a stand</option>
+          <option value="general">General stand</option>
+          <option value="premium">Premium stand</option>
+          <option value="vip">VIP stand</option>
+        </select>
+        <label for="quantity">Number of tickets</label>
+        <input id="quantity" name="quantity" type="number" min="1" max="10" step="1" value="1" required>
+      </form>
+      <aside class="summary-card" aria-labelledby="summary-title" aria-live="polite">
+        <h3 id="summary-title">Your estimate</h3>
+        <p><span>Selected match</span><strong id="summary-match">—</strong></p>
+        <p><span>Stand</span><strong id="summary-stand">—</strong></p>
+        <p><span>Tickets</span><strong id="summary-quantity">—</strong></p>
+        <p><span>Price per ticket</span><strong id="summary-price">₹0</strong></p>
+        <p class="summary-total"><span>Total</span><strong id="summary-total">₹0</strong></p>
+      </aside>
+    </section>
   </main>
 
+  <footer class="site-footer">
+    <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">IPL</span><span>Matchday</span></a>
+    <p>Made for the love of cricket. &copy; 2026 IPL Matchday.</p>
+  </footer>
   <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
